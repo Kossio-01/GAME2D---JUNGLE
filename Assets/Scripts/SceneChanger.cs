@@ -1,23 +1,24 @@
+using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class SceneChanger : MonoBehaviour
 {
-    // Método para cambiar a Escena2 por nombre
-    public void LoadEscena2()
+    public TMPro.TextMeshProUGUI TextApple;
+    public TMPro.TextMeshProUGUI TextBanana;
+    private void Update()
     {
-        SceneManager.LoadScene("Escena2");
+        if (GameManager.instance != null)
+        {
+           int apple = GameManager.instance.ScoreApple;
+           int banana = GameManager.instance.ScoreBanana;
+           TextApple.text = apple.ToString();
+           TextBanana.text = banana.ToString();
+        }
     }
-    
-    // Método para cambiar a Escena1 por nombre
-    public void LoadEscena1()
+    public void LoaderSceneM(string NameScene)
     {
-        SceneManager.LoadScene("Escena1");
-    }
-    
-    // Método para cambiar por índice (ejemplo)
-    public void LoadSceneByIndex(int sceneIndex)
-    {
-        SceneManager.LoadScene(sceneIndex);
+        SceneManager.LoadScene(NameScene);
     }
 }
