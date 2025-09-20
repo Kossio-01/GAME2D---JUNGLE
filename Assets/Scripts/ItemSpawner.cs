@@ -3,46 +3,28 @@ using UnityEngine;
 public class ItemSpawner : MonoBehaviour
 {
     public GameObject[] itemPrefabs;
-    public LayerMask groundLayer;
-    public int itemCount = 10;
-    public float spawnRadius = 0.5f;
+    public Transform[] spawnPoints; 
+    
 
     void Start()
     {
-        SpawnItems();
-    }
-
-    public void SpawnItems()
-    {
-        for (int i = 0; i < itemCount; i++)
+        System.Random rng = new System.Random();
+        int[] indices = new int[spawnPoints.Length];
+        for (int i = 0; i < indices.Length; i++) indices[i] = i;
+        for (int i = indices.Length - 1; i > 0; i--)
         {
-            Vector2 spawnPos = GetValidSpawnPosition();
-            if (spawnPos != Vector2.zero)
-            {
-                int prefabIndex = Random.Range(0, itemPrefabs.Length);
-                Instantiate(itemPrefabs[prefabIndex], spawnPos, Quaternion.identity);
-            }
+            int swap = rng.Next(i + 1);
+            int temp = indices[i];
+            indices[i] = indices[swap];
+            indices[swap] = temp;
         }
-    }
 
-    Vector2 GetValidSpawnPosition()
-    {
-        for (int attempt = 0; attempt < 20; attempt++)
+        int itemTotal = Mathf.Min(itemPrefabs.Length, spawnPoints.Length);
+        for (int i = 0; i < itemTotal; i++)
         {
-            float x = Random.Range(-8f, 8f);
-            float y = Random.Range(-4f, 4f);
-            Vector2 origin = new Vector2(x, y + 5f);
-
-            RaycastHit2D hit = Physics2D.Raycast(origin, Vector2.down, 10f, groundLayer);
-            if (hit.collider != null)
-            {
-                Vector2 groundPos = hit.point;
-                if (!Physics2D.OverlapCircle(groundPos, spawnRadius))
-                {
-                    return groundPos;
-                }
-            }
+            GameObject prefab = itemPrefabs[i % itemPrefabs.Length];
+            Transform point = spawnPoints[indices[i]];
+            Instantiate(prefab, point.position, Quaternion.identity);
         }
-        return Vector2.zero;
     }
 }

@@ -7233,6 +7233,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 192211355230936398, guid: 8054bcec39ab63fdd95da364ae157df5, type: 3}
+      propertyPath: applePrefab
+      value: 
+      objectReference: {fileID: 5639577260542324331, guid: 475d323123c4f4d4a9ce7a1f0cea27d5, type: 3}
+    - target: {fileID: 192211355230936398, guid: 8054bcec39ab63fdd95da364ae157df5, type: 3}
+      propertyPath: bananaPrefab
+      value: 
+      objectReference: {fileID: 8662492227349404830, guid: 152e794861581dd1c850f8a5f01ff157, type: 3}
     - target: {fileID: 7264236133457747735, guid: 8054bcec39ab63fdd95da364ae157df5, type: 3}
       propertyPath: m_LocalPosition.x
       value: 3.481445
